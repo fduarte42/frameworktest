@@ -1,3 +1,4 @@
+<?php /** @var \Application\View\Model\IndexViewModel $model */ ?>
 <div class="jumbotron">
     <h1>Welcome to <span class="zf-green">Zend Framework</span></h1>
 
@@ -10,6 +11,7 @@
     </p>
 
     <p><a class="btn btn-success btn-lg" href="https://github.com/zendframework/zendframework" target="_blank">Fork Zend Framework on GitHub &raquo;</a></p>
+
 </div>
 
 <div class="row">
@@ -71,4 +73,7 @@
             </div>
         </div>
     </div>
+
+    <p>Diese Info kommt aus dem IndexViewModel:<b><?php echo $model->getInfo()?></b></p>
+
 </div>

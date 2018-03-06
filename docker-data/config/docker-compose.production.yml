@@ -1,0 +1,18 @@
+version: '2.1'
+services:
+  db:
+    volumes:
+      - "../../volumes/mysql/init:/docker-entrypoint-initdb.d"
+    restart: always
+
+  phpmyadmin:
+    restart: always
+
+  mail:
+    image: tianon/true
+    command: "/true"
+
+  php:
+    volumes:
+      - "../container/php/ssmtp/ssmtp.production.conf:/etc/ssmtp/ssmtp.conf"
+    restart: always

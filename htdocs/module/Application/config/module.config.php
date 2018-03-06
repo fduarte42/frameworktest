@@ -7,9 +7,13 @@
 
 namespace Application;
 
+use Application\Service\CustomViewPhpRendererFactory;
+use Application\View\Renderer\CustomPhpRenderer;
+use Zend\Mvc\Service\ViewPhpRendererFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\View\Renderer\PhpRenderer;
 
 return [
     'router' => [
@@ -39,6 +43,11 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
+        ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            PhpRenderer::class => CustomViewPhpRendererFactory::class,
         ],
     ],
     'view_manager' => [

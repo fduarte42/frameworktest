@@ -7,6 +7,7 @@
 
 namespace Application\Controller;
 
+use Application\View\Model\IndexViewModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -14,6 +15,6 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        return new IndexViewModel();
     }
 }
