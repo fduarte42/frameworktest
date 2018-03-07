@@ -11,10 +11,6 @@ if (Test-Path $env:CWD\docker-data\config\container\php\apache2\aliases.txt) {
     }
 }
 
-if (-Not (Test-Path $env:CWD\docker-data\config\build\counter.txt)) {
-    "0" | Set-Content "$env:CWD\docker-data\config\build\counter.txt"
-}
-
 Write-Host "`nbuilding Dockerfile ..."
 cat docker-data\config\build\Dockerfile.tpl | `
 %{$_ -replace "{{php_version}}", "$env:PHP_VERSION"} | `
