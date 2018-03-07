@@ -17,7 +17,8 @@ COPY docker-data/config/container/php/ssmtp/ssmtp.production.conf /etc/ssmtp/ssm
 COPY docker-data/config/container/php/ssh/ /ssh/
 COPY docker-data/config/container/php/cron/crontab /tmp/crontab
 COPY .env /etc/environment
-COPY "{{htdocs_folder}}/*" /var/www/html/
+COPY "{{htdocs_folder}}/" /var/www/html/
+RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html
 
 VOLUME ["/var/www/html"]
 

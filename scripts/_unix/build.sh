@@ -16,14 +16,14 @@ if [ -f "$(pwd)/docker-data/config/container/php/apache2/aliases.txt" ]; then
     loadAliasDomain
 fi
 
-echo exporting base container fduarte42/docker-php:$PHP_VERSION ...
-TEMP_CONTAINER=$(docker create fduarte42/docker-php:$PHP_VERSION)
-docker export $TEMP_CONTAINER > docker-data/config/build/extract.tar
-docker rm $TEMP_CONTAINER
+if [ ! -f "$(pwd)/docker-data/config/build/counter.txt" ]
+then
+    echo "0" > "$(pwd)/docker-data/config/build/counter.txt"
+fi
 
-echo squashing container ...
-docker import docker-data/config/build/extract.tar fduarte42/docker-php:$PHP_VERSION-squashed
-rm docker-data/config/build/extract.tar
+BUILD_COUNTER=$(cat  "$(pwd)/docker-data/config/build/counter.txt")
+let "BUILD_COUNTER++"
+echo "$BUILD_COUNTER" > "$(pwd)/docker-data/config/build/counter.txt"
 
 echo building ...
 cat docker-data/config/build/Dockerfile | \
@@ -35,12 +35,12 @@ cat docker-data/config/build/Dockerfile | \
     sed "s/{{environment}}/$ENVIRONMENT/g" | \
     sed "s/{{phpmyadmin_restriction}}/$PHPMYADMIN_RESTRICTION/g" | \
     sed "s/{{htdocs_folder}}/$HTDOCS_FOLDER/g" > docker-data/config/build/Dockerfile.parsed
-docker build -t "$PROJECTNAME:latest" --squash -f docker-data/config/build/Dockerfile.parsed .
+
+docker build -t "$PROJECTNAME:latest" --squash -f docker-data/config/build/Dockerfile.parsed . >/dev/null
 
 echo cleanup ...
 rm docker-data/config/build/Dockerfile.parsed
-docker rmi fduarte42/docker-php:$PHP_VERSION-squashed
 
-echo finished. New image "$PROJECTNAME:latest" built.
+echo finished building image "$PROJECTNAME:$BUILD_COUNTER"
 
 exit
