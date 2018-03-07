@@ -15,14 +15,8 @@ if (-Not (Test-Path $env:CWD\docker-data\config\build\counter.txt)) {
     "0" | Set-Content "$env:CWD\docker-data\config\build\counter.txt"
 }
 
-$BUILD_COUNTER = Get-Content "$env:CWD\docker-data\config\build\counter.txt"
-$BUILD_COUNTER = [convert]::ToInt32($BUILD_COUNTER, 10)
-$BUILD_COUNTER++
-$BUILD_COUNTER | Set-Content "$env:CWD\docker-data\config\build\counter.txt"
-
-Write-Host "`nbuilding ..."
-
-cat docker-data\config\build\Dockerfile | `
+Write-Host "`nbuilding Dockerfile ..."
+cat docker-data\config\build\Dockerfile.tpl | `
 %{$_ -replace "{{php_version}}", "$env:PHP_VERSION"} | `
 %{$_ -replace "{{base_domain}}", "$env:BASE_DOMAIN"} | `
 %{$_ -replace "{{php_virtual_host}}", "$PHP_VIRTUAL_HOST"} | `
@@ -30,14 +24,9 @@ cat docker-data\config\build\Dockerfile | `
 %{$_ -replace "{{document_root}}", "$env:DOCUMENT_ROOT"} | `
 %{$_ -replace "{{environment}}", "$env:ENVIRONMENT"} | `
 %{$_ -replace "{{phpmyadmin_restriction}}", "$env:PHPMYADMIN_RESTRICTION"} | `
-%{$_ -replace "{{htdocs_folder}}", "$env:HTDOCS_FOLDER"} | Out-File docker-data\config\build\Dockerfile.parsed -Encoding UTF8 -append
+%{$_ -replace "{{htdocs_folder}}", "$env:HTDOCS_FOLDER"} | Out-File docker-data\config\build\Dockerfile -Encoding UTF8 -append
 
-Invoke-Expression "& { docker build -t `"$env:PROJECTNAME`:$BUILD_COUNTER`" --squash -f docker-data/config/build/Dockerfile.parsed .} | Out-Null"
-
-Write-Host "`ncleanup ..."
-Invoke-Expression "& { del docker-data/config/build/Dockerfile.parsed }"
-
-Write-Host "`nfinished building image `"$env:PROJECTNAME`:$BUILD_COUNTER`""
+Write-Host "`nfinished"
 
 Write-Host "`n"
 

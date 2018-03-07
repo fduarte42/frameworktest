@@ -16,17 +16,8 @@ if [ -f "$(pwd)/docker-data/config/container/php/apache2/aliases.txt" ]; then
     loadAliasDomain
 fi
 
-if [ ! -f "$(pwd)/docker-data/config/build/counter.txt" ]
-then
-    echo "0" > "$(pwd)/docker-data/config/build/counter.txt"
-fi
-
-BUILD_COUNTER=$(cat  "$(pwd)/docker-data/config/build/counter.txt")
-let "BUILD_COUNTER++"
-echo "$BUILD_COUNTER" > "$(pwd)/docker-data/config/build/counter.txt"
-
-echo building ...
-cat docker-data/config/build/Dockerfile | \
+echo building Dockerfile ...
+cat docker-data/config/build/Dockerfile.tpl | \
     sed "s/{{php_version}}/$PHP_VERSION-squashed/g" | \
     sed "s/{{base_domain}}/$BASE_DOMAIN/g" | \
     sed "s/{{php_virtual_host}}/$PHP_VIRTUAL_HOST/g" | \
@@ -34,13 +25,8 @@ cat docker-data/config/build/Dockerfile | \
     sed "s/{{document_root}}/$DOCUMENT_ROOT/g" | \
     sed "s/{{environment}}/$ENVIRONMENT/g" | \
     sed "s/{{phpmyadmin_restriction}}/$PHPMYADMIN_RESTRICTION/g" | \
-    sed "s/{{htdocs_folder}}/$HTDOCS_FOLDER/g" > docker-data/config/build/Dockerfile.parsed
+    sed "s/{{htdocs_folder}}/$HTDOCS_FOLDER/g" > docker-data/config/build/Dockerfile
 
-docker build -t "$PROJECTNAME:latest" --squash -f docker-data/config/build/Dockerfile.parsed . >/dev/null
-
-echo cleanup ...
-rm docker-data/config/build/Dockerfile.parsed
-
-echo finished building image "$PROJECTNAME:$BUILD_COUNTER"
+echo finished
 
 exit
