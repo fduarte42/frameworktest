@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-sed -e
+set -e
 
 composer install -n
 
