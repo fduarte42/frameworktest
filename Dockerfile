@@ -11,11 +11,11 @@ ENV APPLICATION_ENVIRONMENT "dev"
 ENV TYPO3_CONTEXT "dev"
 ENV PHPMYADMIN_RESTRICTION "0"
 
-COPY docker-data/config-dist/container/php/php.ini /usr/local/etc/php/conf.d/zzz-custom.ini
-COPY docker-data/config-dist/container/php/apache2/sites-enabled/ /etc/apache2/sites-enabled/
-COPY docker-data/config-dist/container/php/ssmtp/ssmtp.production.conf /etc/ssmtp/ssmtp.conf
-COPY docker-data/config-dist/container/php/ssh/ /ssh/
-COPY docker-data/config-dist/container/php/cron/crontab /tmp/crontab
+COPY docker-data/config/container/php/php.ini /usr/local/etc/php/conf.d/zzz-custom.ini
+COPY docker-data/config/container/php/apache2/sites-enabled/ /etc/apache2/sites-enabled/
+COPY docker-data/config/container/php/ssmtp/ssmtp.production.conf /etc/ssmtp/ssmtp.conf
+COPY docker-data/config/container/php/ssh/ /ssh/
+COPY docker-data/config/container/php/cron/crontab /tmp/crontab
 COPY .env /etc/environment
 COPY "htdocs/" /var/www/html/
 RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html
