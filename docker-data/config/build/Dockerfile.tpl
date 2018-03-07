@@ -11,13 +11,13 @@ ENV APPLICATION_ENVIRONMENT "{{environment}}"
 ENV TYPO3_CONTEXT "{{environment}}"
 ENV PHPMYADMIN_RESTRICTION "{{phpmyadmin_restriction}}"
 
-COPY docker-data/config/container/php/php.ini /usr/local/etc/php/conf.d/zzz-custom.ini
-COPY docker-data/config/container/php/apache2/sites-enabled/ /etc/apache2/sites-enabled/
-COPY docker-data/config/container/php/ssmtp/ssmtp.production.conf /etc/ssmtp/ssmtp.conf
-COPY docker-data/config/container/php/ssh/ /ssh/
-COPY docker-data/config/container/php/cron/crontab /tmp/crontab
-COPY .env /etc/environment
-COPY "{{htdocs_folder}}/" /var/www/html/
+COPY ../container/php/php.ini /usr/local/etc/php/conf.d/zzz-custom.ini
+COPY ../container/php/apache2/sites-enabled/ /etc/apache2/sites-enabled/
+COPY ../container/php/ssmtp/ssmtp.production.conf /etc/ssmtp/ssmtp.conf
+COPY ../container/php/ssh/ /ssh/
+COPY ../container/php/cron/crontab /tmp/crontab
+COPY ../../../.env /etc/environment
+COPY "../../../{{htdocs_folder}}/" /var/www/html/
 RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html
 
 VOLUME ["/var/www/html"]
