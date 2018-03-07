@@ -21,7 +21,7 @@ COPY "{{htdocs_folder}}/" /var/www/html/
 RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html
 
 COPY docker-data/config/build/build.sh /build.sh
-RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /build.sh && cd /var/www/html && ./build.sh
+RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /build.sh && cd /var/www/html && /build.sh
 
 VOLUME ["/var/www/html"]
 
