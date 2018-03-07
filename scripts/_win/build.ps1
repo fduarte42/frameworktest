@@ -20,7 +20,7 @@ cat docker-data\config\build\Dockerfile.tpl | `
 %{$_ -replace "{{document_root}}", "$env:DOCUMENT_ROOT"} | `
 %{$_ -replace "{{environment}}", "$env:ENVIRONMENT"} | `
 %{$_ -replace "{{phpmyadmin_restriction}}", "$env:PHPMYADMIN_RESTRICTION"} | `
-%{$_ -replace "{{htdocs_folder}}", "$env:HTDOCS_FOLDER"} | Out-File docker-data\config\build\Dockerfile -Encoding UTF8 -append
+%{$_ -replace "{{htdocs_folder}}", "$env:HTDOCS_FOLDER"} | Out-File Dockerfile -Encoding UTF8
 
 Write-Host "`nfinished"
 

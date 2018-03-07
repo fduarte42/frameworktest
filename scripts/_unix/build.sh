@@ -25,7 +25,7 @@ cat docker-data/config/build/Dockerfile.tpl | \
     sed "s/{{document_root}}/$DOCUMENT_ROOT/g" | \
     sed "s/{{environment}}/$ENVIRONMENT/g" | \
     sed "s/{{phpmyadmin_restriction}}/$PHPMYADMIN_RESTRICTION/g" | \
-    sed "s/{{htdocs_folder}}/$HTDOCS_FOLDER/g" > docker-data/config/build/Dockerfile
+    sed "s/{{htdocs_folder}}/$HTDOCS_FOLDER/g" > Dockerfile
 
 echo finished
 
