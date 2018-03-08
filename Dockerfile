@@ -19,13 +19,9 @@ COPY docker-data/config/container/php/cron/crontab /tmp/crontab
 COPY .env-build /etc/environment
 
 COPY "htdocs/" /var/www/html/
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 775 /var/www/html
 
 COPY docker-data/config/build/build.sh /build.sh
-RUN chown -R www-data:www-data /build.sh
-RUN chmod -R 775 /build.sh
-RUN /build.sh
+RUN /bin/bash /build.sh
 
 VOLUME ["/var/www/html"]
 
