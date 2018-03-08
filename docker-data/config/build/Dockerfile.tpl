@@ -22,9 +22,3 @@ COPY "{{htdocs_folder}}/" /var/www/html/
 
 COPY docker-data/config/build/build.sh /build.sh
 RUN /bin/bash /build.sh
-
-VOLUME ["/var/www/html"]
-
-WORKDIR /var/www/html
-
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
