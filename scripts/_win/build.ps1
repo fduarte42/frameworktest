@@ -12,7 +12,7 @@ if (Test-Path $env:CWD\docker-data\config\container\php\apache2\aliases.txt) {
 }
 
 Write-Host "`nbuilding Dockerfile ..."
-cat docker-data\config\build\Dockerfile.tpl | `
+(Get-Content docker-data\config\build\Dockerfile.tpl | `
 %{$_ -replace "{{php_version}}", "$env:PHP_VERSION"} | `
 %{$_ -replace "{{base_domain}}", "$env:BASE_DOMAIN"} | `
 %{$_ -replace "{{php_virtual_host}}", "$PHP_VIRTUAL_HOST"} | `
@@ -20,7 +20,7 @@ cat docker-data\config\build\Dockerfile.tpl | `
 %{$_ -replace "{{document_root}}", "$env:DOCUMENT_ROOT"} | `
 %{$_ -replace "{{environment}}", "$env:ENVIRONMENT"} | `
 %{$_ -replace "{{phpmyadmin_restriction}}", "$env:PHPMYADMIN_RESTRICTION"} | `
-%{$_ -replace "{{htdocs_folder}}", "$env:HTDOCS_FOLDER"} | Out-File Dockerfile -Encoding UTF8
+%{$_ -replace "{{htdocs_folder}}", "$env:HTDOCS_FOLDER"}) -join "`n" | Out-File Dockerfile -Encoding UTF8
 
 Write-Host "`nfinished"
 

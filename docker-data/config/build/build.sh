@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-composer install -n
+cd /var/www/html
+sudo -u www-data composer install -n
 
 exit 0
