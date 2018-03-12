@@ -19,7 +19,6 @@ COPY docker-data/config/container/php/cron/crontab /tmp/crontab
 COPY .env-build /etc/environment
 
 COPY "htdocs/" /var/www/html/
-COPY "htdocs/" /var/www/html2/
 
 COPY docker-data/config/build/build.sh /build.sh
 RUN /bin/bash /build.sh
