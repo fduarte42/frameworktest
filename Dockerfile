@@ -1,6 +1,6 @@
 ﻿FROM fdua
 
-VOLUME []
+VOLUME none
 
 ENV VIRTUAL_PORT 80
 ENV VIRTUAL_HOST "phpmyadmin.fw-test.liberda.de, www.fw-test.liberda.de, fw-test.liberda.de"
