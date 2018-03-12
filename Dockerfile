@@ -1,4 +1,4 @@
-﻿FROM fdua
+﻿FROM fduarte42/docker-php:7.2
 
 VOLUME none
 
