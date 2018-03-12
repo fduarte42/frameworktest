@@ -1,5 +1,23 @@
 #!/bin/sh
 
+if [ ! -f "$(pwd)/.env" ]; then
+    echo "Environment File missing. Rename .env-dist to .env and customize it before starting this project."
+    exit
+fi
+
+# Read .env file
+loadENV() {
+    local IFS=$'\n'
+    for VAR in $(cat .env | grep -v "^#"); do
+        eval $(echo "$VAR" | sed 's/=\(.*\)/="\1"/')
+    done
+}
+loadENV
+
+if [ -z "$PROJECTNAME" ]; then
+    PROJECTNAME="${PWD##*/}"
+fi
+
 PHP_VIRTUAL_HOST="www.$BASE_DOMAIN, $BASE_DOMAIN"
 PHP_APACHE_ALIAS="localhost"
 if [ -f "$(pwd)/docker-data/config/container/php/apache2/aliases.txt" ]; then
