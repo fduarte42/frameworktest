@@ -1,7 +1,5 @@
 FROM fduarte42/docker-php:{{php_version}}
 
-VOLUME none
-
 ENV VIRTUAL_PORT 80
 ENV VIRTUAL_HOST "phpmyadmin.{{base_domain}}, {{php_virtual_host}}"
 ENV APACHE_HOST "www.{{base_domain}}"
@@ -24,5 +22,3 @@ COPY "{{htdocs_folder}}/" /var/www/html/
 
 COPY docker-data/config/build/build.sh /build.sh
 RUN /bin/bash /build.sh
-
-VOLUME ["/var/www/html"]

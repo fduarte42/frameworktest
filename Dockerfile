@@ -1,7 +1,5 @@
 ﻿FROM fduarte42/docker-php:7.2
 
-VOLUME none
-
 ENV VIRTUAL_PORT 80
 ENV VIRTUAL_HOST "phpmyadmin.fw-test.liberda.de, www.fw-test.liberda.de, fw-test.liberda.de"
 ENV APACHE_HOST "www.fw-test.liberda.de"
@@ -24,5 +22,3 @@ COPY "htdocs/" /var/www/html/
 
 COPY docker-data/config/build/build.sh /build.sh
 RUN /bin/bash /build.sh
-
-VOLUME ["/var/www/html"]
